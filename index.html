@@ -1,26 +1,217 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Richard Ranzani</title>
-  <style>
-    :root { --bg:#fff; --fg:#1a1a1a; --muted:#666; --accent:#2563eb; }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg:#111; --fg:#eee; --muted:#999; --accent:#60a5fa; }
-    }
-    body { margin:0; background:var(--bg); color:var(--fg); font:18px/1.6 system-ui,sans-serif; }
-    main { max-width:640px; margin:0 auto; padding:12vh 16px; }
-    h1 { font-size:2.4rem; margin:0 0 .25em; }
-    p { color:var(--muted); }
-    a { color:var(--accent); }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ranzani Labs — O futuro com IA</title>
+<meta name="description" content="Ranzani Labs: inteligência artificial que atende, automatiza e decide pelo seu negócio.">
+<style>
+  :root { --bg:#02030a; --fg:#e9f1ff; --muted:#8fa3c7; --a:#5cf0ff; --b:#a56bff; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; background:var(--bg); color:var(--fg); font:18px/1.6 "Segoe UI",system-ui,sans-serif; }
+  canvas#gl { position:fixed; inset:0; width:100%; height:100%; display:block; }
+  .vignette { position:fixed; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.75) 100%); }
+  nav { position:fixed; top:0; left:0; right:0; z-index:5; display:flex; justify-content:space-between;
+    padding:20px 24px; letter-spacing:.3em; font-size:12px; text-transform:uppercase; color:var(--muted); }
+  nav b { color:var(--fg); }
+  section { position:relative; z-index:2; min-height:100vh; display:flex; flex-direction:column;
+    justify-content:center; padding:0 24px; max-width:960px; margin:0 auto; }
+  section.right { align-items:flex-end; text-align:right; }
+  .tag { color:var(--a); letter-spacing:.35em; font-size:12px; text-transform:uppercase; margin-bottom:16px; }
+  h1,h2 { margin:0 0 .4em; font-weight:200; line-height:1.05; letter-spacing:-.02em; }
+  h1 { font-size:clamp(2.8rem,9vw,6.5rem); }
+  h2 { font-size:clamp(2rem,6vw,4rem); }
+  h1 em,h2 em { font-style:normal; color:var(--a); }
+  p { color:var(--muted); max-width:34em; margin:0 0 1em; }
+  .cta { display:inline-block; margin-top:12px; padding:16px 36px; border:1px solid var(--a); color:var(--a);
+    text-decoration:none; letter-spacing:.2em; text-transform:uppercase; font-size:13px; border-radius:2px;
+    transition:.3s; }
+  .cta:hover { background:var(--a); color:#000; }
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity 1s, transform 1s; }
+  .reveal.in { opacity:1; transform:none; }
+  .hint { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:5; font-size:11px;
+    letter-spacing:.4em; color:var(--muted); text-transform:uppercase; transition:opacity .5s; }
+  noscript { position:fixed; z-index:9; top:50%; width:100%; text-align:center; }
+</style>
 </head>
 <body>
-  <main>
-    <h1>Olá, eu sou Richard.</h1>
-    <p>Esta é minha página no GitHub Pages.</p>
-    <p><a href="https://github.com/">GitHub</a></p>
-  </main>
+<canvas id="gl"></canvas>
+<div class="vignette"></div>
+<nav><b>Ranzani Labs</b><span>IA · Automação · Futuro</span></nav>
+<div class="hint" id="hint">Role para entrar</div>
+
+<section>
+  <div class="tag reveal">Ranzani Labs</div>
+  <h1 class="reveal">O futuro<br>já está <em>ligado.</em></h1>
+  <p class="reveal">Enquanto você lê isto, seus concorrentes estão sendo atendidos por inteligência artificial. Entre.</p>
+</section>
+
+<section class="right">
+  <div class="tag reveal">01 — Atendimento</div>
+  <h2 class="reveal">Seu WhatsApp<br>que <em>nunca dorme.</em></h2>
+  <p class="reveal">IA que responde, qualifica e agenda clientes 24 horas por dia, no tom da sua marca, integrada à API oficial da Meta.</p>
+</section>
+
+<section>
+  <div class="tag reveal">02 — Automação</div>
+  <h2 class="reveal">Processos que<br><em>se resolvem sozinhos.</em></h2>
+  <p class="reveal">Planilhas, cobranças, estoque, relatórios. Cada tarefa repetitiva vira um fluxo que executa sem você.</p>
+</section>
+
+<section class="right">
+  <div class="tag reveal">03 — Inteligência</div>
+  <h2 class="reveal">Decisões com<br><em>dados, não palpite.</em></h2>
+  <p class="reveal">Painéis e modelos que enxergam o que o seu negócio vai precisar antes de você precisar.</p>
+</section>
+
+<section>
+  <div class="tag reveal">04 — Agora</div>
+  <h2 class="reveal">Quem chega primeiro<br>no futuro, <em>fica nele.</em></h2>
+  <p class="reveal">Conte o que seu negócio precisa. Nós construímos a IA.</p>
+  <!-- TODO: trocar href pelo WhatsApp/e-mail real de contato -->
+  <a class="cta reveal" href="https://github.com/Bharcks">Falar com a Ranzani Labs</a>
+</section>
+
+<noscript>Ative o JavaScript para ver a experiência 3D.</noscript>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const canvas = document.getElementById('gl');
+const mobile = innerWidth < 700;
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:false, powerPreference:'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x02030a, 0.012);
+const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 400);
+
+// Trilha da câmera: túnel de dados ao longo de -Z, com leve serpenteio
+const path = new THREE.CatmullRomCurve3([
+  [0,0,14],[0,0,-6],[4,1.5,-34],[-4,-1,-62],[3,1,-92],[0,0,-124]
+].map(a => new THREE.Vector3(...a)));
+
+const C1 = new THREE.Color(0x5cf0ff), C2 = new THREE.Color(0xa56bff);
+
+// Partículas: nuvem em torno da trilha (neurônios / dados)
+const N = mobile ? 9000 : 24000;
+const pos = new Float32Array(N*3), col = new Float32Array(N*3);
+for (let i=0;i<N;i++){
+  const t = Math.random();
+  const c = path.getPoint(t);
+  const r = 3 + Math.pow(Math.random(),1.6)*30, a = Math.random()*Math.PI*2;
+  pos.set([c.x + Math.cos(a)*r, c.y + Math.sin(a)*r*0.7, c.z + (Math.random()-.5)*8], i*3);
+  const k = new THREE.Color().lerpColors(C1, C2, Math.random());
+  col.set([k.r,k.g,k.b], i*3);
+}
+const geo = new THREE.BufferGeometry();
+geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+geo.setAttribute('color', new THREE.BufferAttribute(col,3));
+// Sprite redondo: sem ele os pontos próximos da câmera viram quadrados
+const dot = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const g = c.getContext('2d'), r = g.createRadialGradient(32,32,0,32,32,32);
+  r.addColorStop(0,'#fff'); r.addColorStop(.4,'rgba(255,255,255,.5)'); r.addColorStop(1,'rgba(255,255,255,0)');
+  g.fillStyle = r; g.fillRect(0,0,64,64); return new THREE.CanvasTexture(c);
+})();
+const points = new THREE.Points(geo, new THREE.PointsMaterial({
+  size:0.12, map:dot, alphaTest:.01, vertexColors:true, transparent:true, opacity:.9, depthWrite:false, blending:THREE.AdditiveBlending }));
+scene.add(points);
+
+const wire = (g, color) => new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color, wireframe:true, transparent:true, opacity:.55 }));
+
+// Cap. 0: núcleo de IA
+const core = new THREE.Group();
+core.add(wire(new THREE.IcosahedronGeometry(3,2), 0x5cf0ff));
+core.add(wire(new THREE.IcosahedronGeometry(1.6,1), 0xa56bff));
+core.add(new THREE.Mesh(new THREE.SphereGeometry(.7,32,32), new THREE.MeshBasicMaterial({ color:0xffffff })));
+core.position.set(0,0,-6); scene.add(core);
+
+// Cap. 1: anéis (atendimento / sinal)
+const rings = new THREE.Group();
+for (let i=0;i<5;i++){
+  const m = new THREE.Mesh(new THREE.TorusGeometry(4+i*1.4,.025,8,160),
+    new THREE.MeshBasicMaterial({ color:i%2?0xa56bff:0x5cf0ff }));
+  m.position.z = -i*2.2; rings.add(m);
+}
+rings.position.set(4,1.5,-34); scene.add(rings);
+
+// Cap. 2: rede de nós (automação)
+const net = new THREE.Group();
+const nodes = Array.from({length:40}, () => new THREE.Vector3(
+  (Math.random()-.5)*14,(Math.random()-.5)*9,(Math.random()-.5)*14));
+const ng = new THREE.BufferGeometry().setFromPoints(nodes);
+net.add(new THREE.Points(ng, new THREE.PointsMaterial({ size:.5, map:dot, transparent:true, depthWrite:false, color:0xffffff, blending:THREE.AdditiveBlending })));
+const seg = [];
+nodes.forEach((a,i)=>nodes.forEach((b,j)=>{ if(j>i && a.distanceTo(b)<5) seg.push(a,b); }));
+net.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(seg),
+  new THREE.LineBasicMaterial({ color:0x5cf0ff, transparent:true, opacity:.5 })));
+net.position.set(-4,-1,-62); scene.add(net);
+
+// Cap. 3: esfera de dados (decisão)
+const orb = wire(new THREE.SphereGeometry(4,32,16), 0xa56bff);
+orb.material.opacity = .25;
+orb.position.set(3,1,-92); scene.add(orb);
+
+// Cap. 4: "sol"
+const sun = new THREE.Mesh(new THREE.SphereGeometry(3,48,48), new THREE.MeshBasicMaterial({ color:0xbfffff }));
+sun.position.set(0,0,-130); scene.add(sun);
+
+// Pós-processamento: bloom cinematográfico
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .6, .7, .2);
+composer.addPass(bloom);
+composer.addPass(new OutputPass());
+
+// Scroll + mouse
+let target = 0, prog = 0, mx = 0, my = 0;
+const maxScroll = () => Math.max(1, document.documentElement.scrollHeight - innerHeight);
+addEventListener('scroll', () => { target = scrollY / maxScroll(); document.getElementById('hint').style.opacity = scrollY>50 ? 0 : 1; }, { passive:true });
+addEventListener('pointermove', e => { mx = e.clientX/innerWidth - .5; my = e.clientY/innerHeight - .5; });
+addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight); composer.setSize(innerWidth, innerHeight);
+});
+
+// Texto aparece ao entrar na tela
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), { threshold:.2 });
+document.querySelectorAll('.reveal').forEach((el,i) => { el.style.transitionDelay = (i%3)*.15+'s'; io.observe(el); });
+
+const look = new THREE.Vector3();
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  const t = clock.getElapsedTime();
+  prog += (target - prog) * 0.05;                       // inércia suave
+  const p = Math.min(prog, .999);
+  const cp = path.getPoint(p);
+  camera.position.set(cp.x + mx*1.5, cp.y - my*1.0, cp.z);
+  look.copy(path.getPoint(Math.min(p + .03, 1)));
+  camera.lookAt(look);
+  camera.rotation.z += Math.sin(t*.3)*.01 + mx*-.05;    // leve inclinação de câmera
+
+  core.rotation.y = t*.25; core.rotation.x = t*.15;
+  core.scale.setScalar(1 + Math.sin(t*1.5)*.04);
+  rings.children.forEach((r,i) => { r.rotation.z = t*(.2+i*.1); r.scale.setScalar(1 + Math.sin(t*2 - i)*.03); });
+  net.rotation.y = t*.1;
+  orb.rotation.y = -t*.2; orb.rotation.x = t*.1;
+  sun.scale.setScalar(1 + Math.sin(t*2)*.05);
+  points.rotation.z = t*.01;
+  composer.render();
+});
+</script>
 </body>
 </html>
